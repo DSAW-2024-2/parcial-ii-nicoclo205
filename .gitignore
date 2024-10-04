@@ -21,3 +21,4 @@ coverage/
 # Archivos temporales
 .DS_Store
 Thumbs.db
+.vercel
