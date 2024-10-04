@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const weatherRouter = require('./routes/weather');
-const APIurl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`;
+const APIurl = `https://api.open-meteo.com/v1/forecast?latitude=${req.query.latitude}&longitude=${req.query.longitude}&current=temperature_2m`;
 
 app.use(express.json());
 app.use('/weather', weatherRouter);
