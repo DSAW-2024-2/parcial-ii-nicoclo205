@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+
+# Archivos de bloqueo de paquetes
+package-lock.json
+
+# Archivos de ambiente
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Directorio de salida de compilación
+dist/
+
+# Directorio de cobertura de pruebas
+coverage/
+
+# Archivos temporales
+.DS_Store
+Thumbs.db
