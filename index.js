@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const jwt = require('jsonwebtoken');
-const fetch = require('node-fetch');
 require('dotenv').config();
 
 const loginRouter = require('./routes/login');
