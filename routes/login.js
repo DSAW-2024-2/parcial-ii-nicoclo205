@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const loginRouter = require('./routes/login');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
