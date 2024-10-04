@@ -1,16 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const loginRouter = require('./routes/login');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-app.use(express.json());
-app.use('/login', loginRouter);
 
-router.get('/', (req, res) => {
-  res.send('Login page');
-});
+const credentials = {
+    email: 'admin@admin.com',
+    password: 'admin'
+}
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+router.post('/', (req, res) => {
+    const { email, password } = req.body;
+
+    if (email === credentials.email && password === credentials.password) {
+        const user = { email: email };
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' });
+
+    res.json({ accessToken: accessToken });
+    
+    }else{
+        res.status(401).json({ message: 'Invalid email or password' });
+    }
 });
 
 module.exports = router;
