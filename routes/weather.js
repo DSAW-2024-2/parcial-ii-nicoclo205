@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const weatherRouter = require('./routes/weather');
+const APIurl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`;
 
 app.use(express.json());
 app.use('/weather', weatherRouter);
@@ -25,10 +26,20 @@ router.get('/', authenticateToken, (req, res) => {
         return res.status(400).json({message: 'latitude and longitude are required'});
     }
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.WEATHER_API_KEY}`)
-        .then(response => response.json())
-        .then(data => res.json(data))
-        .catch(error => res.status(500).json({message: error.message}));
+    fetch(APIurl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Weather API request failed');
+      }
+      return response.json();
+    })
+    .then(data => {
+      res.json({ temperature: data.current.temperature_2m });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      res.status(500).json({ message: 'Error fetching weather data' });
+    });
 });
 
 module.exports = router;
